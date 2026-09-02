@@ -7,7 +7,6 @@ import java.util.Optional;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -27,8 +26,11 @@ import com.lesson.memo.repository.MemoRepository;
 @RequestMapping("/memo")
 public class MemoController {
 
-    @Autowired
-    private MemoRepository memoRepository;
+    private final MemoRepository memoRepository;
+
+    MemoController(MemoRepository memoRepository) {
+        this.memoRepository = memoRepository;
+    }
     @GetMapping("")
     public String memoList(Model model) {
     	List <Memo> memos = memoRepository.findAllByOrderByPriorityAsc();
