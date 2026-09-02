@@ -30,19 +30,24 @@
 					<div class="priority-group">
 						<label for="high" class="priority-pill high">
 							高
-							<input type="radio" id="high" name="priority" value="HIGH" class="priority-radio" checked>
+							<input id="high" class="priority-radio" type="radio" th:field="*{priority}" value="HIGH">
 						</label>
 						
 						<label for="medium" class="priority-pill medium">
 							中
-							<input type="radio" id="medium" name="priority" value="MEDIUM" class="priority-radio">
+							<input id="medium" class="priority-radio" type="radio" th:field="*{priority}" value="MEDIUM">
 						</label>
 						
 						<label for="low" class="priority-pill low">
 							低
-							<input type="radio" id="low" name="priority" value="LOW" class="priority-radio">
+							<input id="low" class="priority-radio" type="radio" th:field="*{priority}" value="LOW">							
 						</label>
 					</div>
+							<div th:if="${#fields.hasErrors('priority')}"
+								 th:errors="*{priority}"
+								 class="error-message">
+								 
+							</div>
 				</div>
 
                 <div class="form-group">
