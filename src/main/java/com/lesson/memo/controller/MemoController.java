@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.lesson.memo.model.Memo;
@@ -34,13 +35,28 @@ public class MemoController {
     @GetMapping("")
     public String memoList(Model model) {
     	List <Memo> memos = memoRepository.findAllByOrderByPriorityAsc();
-    	
-    	model.addAttribute("memos", memos);
+    	model.addAttribute("memos" , memos);
     	
     	return "memo-list";
     }
     
+    @GetMapping("/serch")
+    public String serch(Model model,
+//    		HTMLで検索した内容をここでkeywordに入れている
+    					@RequestParam(required = false)String keyword ) {
+    	
+    	List <Memo> memos = null;
+    	if(keyword == null || keyword.isBlank()) {
+    		memos = memoRepository.findAllByOrderByPriorityAsc();
+    		
+    	}else {
+    		memos = memoRepository.findByTitleContainingOrContentContainingOrderByPriorityAsc(keyword,keyword);
     
+    	}
+
+			model.addAttribute("memos", memos);
+    		return "memo-list";	
+    }
 
     @GetMapping("/new")
     public String showForm(Model model) {
@@ -134,5 +150,8 @@ public class MemoController {
         }
 
         return "redirect:/memo";
+        
     }
+    
+    
 }

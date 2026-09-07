@@ -531,3 +531,8 @@ textarea {
 .priority-pill.low:has(.priority-radio:checked) {
   background:#198754; color:#fff;
 }
+
+.serch {
+	padding: 10px 0px;
+	
+}
