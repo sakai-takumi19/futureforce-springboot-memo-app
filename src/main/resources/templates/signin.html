@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>ログイン画面</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/style.css}">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css">
+</head>
+
+<body>
+	<div class="container">
+		<div class="header">
+		<h1>ログイン画面</h1>
+		<a th:href="@{/admin/signup}" class="btn btn-outline">ユーザー登録画面</a>
+		</div>
+	</div>
+
+	<div>
+		<form th:action="@{/admin/signin}" th:object="${admin}" method="post">
+			<label>メールアドレス</label>
+			<input type="email" th:field="*{email}" name="username">
+			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="error-message"></div>
+			<label>パスワード</label>
+			<input type="text" th:field="*{password}" name="password">
+			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="error-message"></div>
+			<div class="form-group">
+				<button type="submit" class="btn btn-primary">ログイン</button>
+			</div>
+		</form>
+	</div>
+
+</body>
